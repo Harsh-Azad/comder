@@ -42,14 +42,14 @@ const fetchAll = async () => {
 
 	for (let i = 0; i < userArr.length; i++) {
 		const discordId = userArr[i].discordId;
-		const userState = await fetchOne(userArr[i].gfg.id);
-		if (userState) {
+		try {
+			const userState = await fetchOne(userArr[i].gfg.id);
 			userMap.set(discordId, userState);
+		} catch (err) {
+			console.log("err in gfg fetch(discordId): ", discordId)
 		}
 	}
 	return userMap;
 };
-
-fetchOne('avisomil140');
 
 module.exports = { name: 'gfg', fetchOne, fetchAll };
